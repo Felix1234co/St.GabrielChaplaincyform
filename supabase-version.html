@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Gabriel Chaplaincy - Registration with Supabase Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .church-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #a855f7 75%, #c084fc 100%);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFA500 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen church-gradient">
+    <!-- Supabase Setup Notice -->
+    <div class="bg-green-100 border-l-4 border-green-500 p-4 m-4 rounded-lg">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <span class="text-green-500 text-xl">🗄️</span>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm text-green-700">
+                    <strong>Supabase PostgreSQL Database:</strong> Professional database with SQL support.
+                    <button onclick="showSupabaseSetup()" class="underline hover:no-underline">Setup Instructions</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-4">St. Gabriel Chaplaincy</h1>
+            <p class="text-white/90">PostgreSQL Database Integration</p>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="bg-white rounded-3xl shadow-2xl p-8">
+            <form id="registrationForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+                        <input type="text" id="fullName" required
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                        <input type="email" id="emailAddress" required
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
+                        <input type="tel" id="phoneNumber" required
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Ministry *</label>
+                        <select id="ministry" required
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none">
+                            <option value="">Select Ministry</option>
+                            <option value="Choir">Choir</option>
+                            <option value="Altar Server">Altar Server</option>
+                            <option value="Usher">Usher</option>
+                            <option value="Youth Ministry">Youth Ministry</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn"
+                    class="w-full gold-gradient text-white py-4 rounded-xl text-lg font-bold hover:scale-105 transition-transform">
+                    💾 Save to PostgreSQL Database
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Supabase Setup Modal -->
+    <div id="supabaseSetupModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold mb-6">🗄️ Supabase PostgreSQL Setup</h2>
+            
+            <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-800 mb-2">Setup Steps:</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-sm text-blue-700">
+                        <li>Go to <a href="https://supabase.com" target="_blank" class="underline">supabase.com</a></li>
+                        <li>Create a new project</li>
+                        <li>Go to SQL Editor and run this query:</li>
+                    </ol>
+                </div>
+
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg text-sm">
+                    <pre><code>CREATE TABLE members (
+    id SERIAL PRIMARY KEY,
+    member_id VARCHAR(20) UNIQUE,
+    full_name VARCHAR(255) NOT NULL,
+    email_address VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20),
+    ministry VARCHAR(100),
+    sacrament_status VARCHAR(50),
+    registration_date TIMESTAMP DEFAULT NOW(),
+    photo_url TEXT
+);</code></pre>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-800 mb-2">Replace Configuration:</h4>
+                    <pre class="text-xs bg-gray-800 text-green-400 p-3 rounded"><code>const supabaseUrl = 'your-project-url'
+const supabaseKey = 'your-anon-key'</code></pre>
+                </div>
+            </div>
+
+            <button onclick="closeSupabaseSetup()" class="w-full mt-6 bg-gray-300 text-gray-700 py-3 rounded-xl font-semibold">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ADMIN: Replace with your Supabase credentials
+        const supabaseUrl = 'https://your-project.supabase.co'
+        const supabaseKey = 'your-anon-key'
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerHTML = '⏳ Saving to PostgreSQL...';
+            submitBtn.disabled = true;
+
+            try {
+                const memberData = {
+                    member_id: `SGC-${Date.now().toString().slice(-6)}`,
+                    full_name: document.getElementById('fullName').value,
+                    email_address: document.getElementById('emailAddress').value,
+                    phone_number: document.getElementById('phoneNumber').value,
+                    ministry: document.getElementById('ministry').value,
+                    registration_date: new Date().toISOString()
+                };
+
+                const { data, error } = await supabase
+                    .from('members')
+                    .insert([memberData]);
+
+                if (error) throw error;
+
+                alert(`✅ Successfully saved to PostgreSQL database!\nMember ID: ${memberData.member_id}`);
+                document.getElementById('registrationForm').reset();
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Error saving to database. Check your Supabase configuration.');
+            }
+
+            submitBtn.innerHTML = '💾 Save to PostgreSQL Database';
+            submitBtn.disabled = false;
+        });
+
+        function showSupabaseSetup() {
+            document.getElementById('supabaseSetupModal').classList.remove('hidden');
+        }
+
+        function closeSupabaseSetup() {
+            document.getElementById('supabaseSetupModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

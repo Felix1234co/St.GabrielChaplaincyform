@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Gabriel Chaplaincy - Official Member Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --church-gold: #D4AF37;
+            --church-blue: #1e3a8a;
+            --church-burgundy: #800020;
+            --church-cream: #F5F5DC;
+            --church-navy: #0f172a;
+            --church-silver: #C0C0C0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #a855f7 75%, #c084fc 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cross" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10 0v20M0 10h20" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23cross)"/></svg>');
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--church-gold), #FFD700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3); }
+            to { box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6); }
+        }
+
+        .logo-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--church-blue);
+            margin-bottom: 2px;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--church-blue), var(--church-burgundy));
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--church-gold);
+            color: var(--church-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1rem;
+            color: var(--church-gold);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 3rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--church-gold), #FFD700);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--church-blue), var(--church-burgundy));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--church-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--church-gold), #FFD700);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="20" font-size="16" fill="rgba(255,255,255,0.1)">✝</text><text x="80" y="40" font-size="12" fill="rgba(255,255,255,0.1)">🕊</text><text x="20" y="80" font-size="14" fill="rgba(255,255,255,0.1)">⛪</text></svg>');
+            opacity: 0.3;
+        }
+
+        .form-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-body {
+            padding: 3rem;
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .form-section-title i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--church-blue), var(--church-burgundy));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-section-title h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--church-blue);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--church-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .file-upload {
+            border: 3px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .file-upload:hover {
+            border-color: var(--church-gold);
+            background: #fffbeb;
+        }
+
+        .file-upload.has-file {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .file-upload i {
+            font-size: 3rem;
+            color: #9ca3af;
+            margin-bottom: 1rem;
+        }
+
+        .file-upload.has-file i {
+            color: #10b981;
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .radio-option {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .radio-option:hover {
+            border-color: var(--church-gold);
+            background: #fffbeb;
+        }
+
+        .radio-option.selected {
+            border-color: var(--church-gold);
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+        }
+
+        .radio-option input {
+            margin-right: 8px;
+        }
+
+        .radio-option label {
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        .radio-option p {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid #bfdbfe;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .payment-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--church-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .bank-details {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--church-gold);
+            margin: 1rem 0;
+        }
+
+        .bank-details h4 {
+            color: var(--church-blue);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .bank-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .bank-info div {
+            font-size: 0.9rem;
+        }
+
+        .bank-info strong {
+            color: var(--church-blue);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--church-gold), #FFD700);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--church-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        /* ID Card */
+        .id-card {
+            background: linear-gradient(135deg, var(--church-blue), var(--church-burgundy));
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .id-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .id-card-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .id-card-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .id-card-body {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .id-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .id-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .id-info p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo i {
+            font-size: 2rem;
+            color: var(--church-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content {
+                padding: 2rem;
+            }
+
+            .form-body {
+                padding: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success Animation */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #10b981;
+            stroke-miterlimit: 10;
+            margin: 2rem auto;
+            box-shadow: inset 0px 0px 0px #10b981;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+
+        .success-checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #10b981;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .success-checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 30px #10b981;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>St. Gabriel Chaplaincy</h1>
+                        <p>Catholic Community Registration</p>
+                    </div>
+                </div>
+                <nav class="header-nav">
+                    <button class="nav-btn secondary" onclick="showStats()">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statistics</span>
+                    </button>
+                    <button class="nav-btn" onclick="showAdminPanel()">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fas fa-cross"></i>
+                </div>
+                <h1>St. Gabriel Chaplaincy</h1>
+                <p>Official Membership Registration Portal</p>
+                <p class="subtitle">"Under the Protection of Archangel Gabriel"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number" id="totalMembers">0</div>
+                    <div class="stat-label">Total Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-number" id="monthlyMembers">0</div>
+                    <div class="stat-label">This Month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-number" id="todayMembers">0</div>
+                    <div class="stat-label">Today</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-dove"></i> Divine Blessing & Registration</h2>
+                    <p>Every membership is blessed with St. Gabriel's divine protection and guidance</p>
+                </div>
+                <div class="form-body">
+                    <form id="registrationForm">
+                        <!-- Personal Information -->
+                        <div class="form-section-title">
+                            <i class="fas fa-user"></i>
+                            <h3>Personal Information</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" name="fullName" required placeholder="Enter your complete full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of Birth *</label>
+                                <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender *</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="maritalStatus">Marital Status *</label>
+                                <select id="maritalStatus" name="maritalStatus" required>
+                                    <option value="">Select Status</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Widowed">Widowed</option>
+                                    <option value="Divorced">Divorced</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="form-section-title">
+                            <i class="fas fa-phone"></i>
+                            <h3>Contact Information</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="phoneNumber">Primary Phone Number *</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" required placeholder="+234 XXX XXX XXXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="emailAddress">Email Address *</label>
+                                <input type="email" id="emailAddress" name="emailAddress" required placeholder="your.email@example.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="homeAddress">Home Address *</label>
+                            <textarea id="homeAddress" name="homeAddress" required rows="3" placeholder="Enter your complete home address"></textarea>
+                        </div>
+
+                        <!-- Photo Upload -->
+                        <div class="form-section-title">
+                            <i class="fas fa-camera"></i>
+                            <h3>Official Passport Photograph</h3>
+                        </div>
+                        <div class="form-group">
+                            <div class="file-upload" onclick="document.getElementById('photoUpload').click()">
+                                <input type="file" id="photoUpload" name="photoUpload" accept="image/*" style="display: none;" required>
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p id="photoStatus"><strong>Click to upload your passport photo</strong></p>
+                                <p style="font-size: 0.9rem; color: #6b7280; margin-top: 0.5rem;">Recommended: Clear, recent photo with white background</p>
+                            </div>
+                            <div id="photoPreview" style="display: none; text-align: center; margin-top: 1rem;">
+                                <img id="previewImage" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 3px solid var(--church-gold);">
+                            </div>
+                        </div>
+
+                        <!-- Ministry Information -->
+                        <div class="form-section-title">
+                            <i class="fas fa-church"></i>
+                            <h3>Ministry & Spiritual Information</h3>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ministry">Primary Ministry/Domain *</label>
+                                <select id="ministry" name="ministry" required onchange="handleMinistryChange()">
+                                    <option value="">✨ Select your primary ministry</option>
+                                    <option value="Choir">🎵 Choir Ministry</option>
+                                    <option value="Altar Server">⛪ Altar Server</option>
+                                    <option value="Board of Lector">📖 Board of Lector</option>
+                                    <option value="CMO">👨‍👥 Catholic Men Organization (CMO)</option>
+                                    <option value="CWO">👩‍👥 Catholic Women Organization (CWO)</option>
+                                    <option value="St. Vincent de Paul">❤️ St. Vincent de Paul Society</option>
+                                    <option value="Legion of Mary">🌹 Legion of Mary</option>
+                                    <option value="Youth Ministry">🌟 Youth Ministry</option>
+                                    <option value="Catechist">📚 Catechist</option>
+                                    <option value="Usher">🚪 Usher Ministry</option>
+                                    <option value="Parish Council">🏛️ Parish Pastoral Council</option>
+                                    <option value="Knights of Columbus">⚔️ Knights of Columbus</option>
+                                    <option value="Prayer Group">🙏 Prayer Group</option>
+                                    <option value="Other">✍️ Other Ministry (Please specify)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="yearsInFaith">Years in Catholic Faith *</label>
+                                <select id="yearsInFaith" name="yearsInFaith" required>
+                                    <option value="">Select duration</option>
+                                    <option value="Less than 1 year">Less than 1 year</option>
+                                    <option value="1-5 years">1-5 years</option>
+                                    <option value="6-10 years">6-10 years</option>
+                                    <option value="11-20 years">11-20 years</option>
+                                    <option value="More than 20 years">More than 20 years</option>
+                                    <option value="Born Catholic">Born Catholic</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="customMinistryDiv" style="display: none;">
+                            <label for="customMinistry">✨ Please specify your ministry/domain</label>
+                            <input type="text" id="customMinistry" name="customMinistry" placeholder="e.g., Hospital Visitation, Bible Study, Evangelization, etc.">
+                        </div>
+
+                        <!-- Sacramental Status -->
+                        <div class="form-group">
+                            <label>Sacramental Status *</label>
+                            <div class="radio-group">
+                                <div class="radio-option" onclick="selectRadio('sacramentStatus', 'Communicant')">
+                                    <input type="radio" name="sacramentStatus" value="Communicant" required>
+                                    <label><strong>Communicant</strong></label>
+                                    <p>Baptized & Confirmed</p>
+                                </div>
+                                <div class="radio-option" onclick="selectRadio('sacramentStatus', 'Baptized Only')">
+                                    <input type="radio" name="sacramentStatus" value="Baptized Only" required>
+                                    <label><strong>Baptized Only</strong></label>
+                                    <p>Awaiting Confirmation</p>
+                                </div>
+                                <div class="radio-option" onclick="selectRadio('sacramentStatus', 'Catechumen')">
+                                    <input type="radio" name="sacramentStatus" value="Catechumen" required>
+                                    <label><strong>Catechumen</strong></label>
+                                    <p>Preparing for Baptism</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Information -->
+                        <div class="payment-section">
+                            <div class="form-section-title">
+                                <i class="fas fa-credit-card"></i>
+                                <h3>Membership Registration Fee</h3>
+                            </div>
+                            <div class="payment-header">
+                                <div class="payment-amount">₦2,000</div>
+                                <p>One-time Registration & ID Card Fee</p>
+                                <p style="font-size: 0.9rem; color: #6b7280;">Includes: Official ID Card, Welcome Package, and Administrative Processing</p>
+                            </div>
+                            <div class="bank-details">
+                                <h4><i class="fas fa-university"></i> Parish Bank Account Details</h4>
+                                <div class="bank-info">
+                                    <div><strong>Bank Name:</strong> Fidelity Bank Nigeria</div>
+                                    <div><strong>Account Number:</strong> 5070123456</div>
+                                    <div><strong>Account Name:</strong> St. Gabriel Chaplaincy</div>
+                                    <div><strong>Branch:</strong> University Branch</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Agreement -->
+                        <div class="form-group">
+                            <div class="radio-option" onclick="toggleTerms()">
+                                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                <label><strong>Terms, Conditions & Privacy Policy Agreement</strong></label>
+                                <p>I agree that my personal information will be used exclusively for parish records, communication, and spiritual care. I consent to data processing for parish purposes and agree to active participation in parish life.</p>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-cross"></i> Complete Registration & Generate ID Card
+                        </button>
+                        <p style="text-align: center; margin-top: 1rem; color: #6b7280;">
+                            <i class="fas fa-dove"></i> May St. Gabriel guide and protect you in your faith journey
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeSuccessModal()">&times;</button>
+            <div class="modal-header">
+                <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="success-checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="success-checkmark__check" fill="none" d="m14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+                <h3 class="modal-title">Registration Successful!</h3>
+                <p>Welcome to the St. Gabriel Chaplaincy family!</p>
+            </div>
+            <div id="memberInfo" style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; margin: 1rem 0;"></div>
+            <div style="text-align: center; margin: 1.5rem 0;">
+                <p style="color: #10b981; margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> Your membership has been successfully registered</p>
+                <p style="color: #6b7280; margin-bottom: 0.5rem;"><i class="fas fa-envelope"></i> Admin notification sent for ID card processing</p>
+                <p style="color: #6b7280; margin-bottom: 0.5rem;"><i class="fas fa-id-card"></i> Your ID card preview is ready</p>
+                <p style="color: var(--church-gold);"><i class="fas fa-dove"></i> May God bless you abundantly!</p>
+            </div>
+            <button onclick="showIDCard()" class="submit-btn" style="margin-top: 0;">
+                <i class="fas fa-id-card"></i> View & Print ID Card
+            </button>
+        </div>
+    </div>
+
+    <!-- ID Card Modal -->
+    <div id="idCardModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="close-btn" onclick="closeIDCard()">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Official Membership ID Card</h3>
+                <p>Your blessed membership card preview</p>
+            </div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <button onclick="printIDCard()" class="nav-btn" style="margin-right: 1rem;">
+                    <i class="fas fa-print"></i> Print Card
+                </button>
+                <button onclick="downloadIDCard()" class="nav-btn secondary">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+            <div class="id-card" id="idCardContent">
+                <div class="id-card-header">
+                    <h3><i class="fas fa-church"></i> ST. GABRIEL CHAPLAINCY</h3>
+                    <p>Official Member Identification Card</p>
+                    <p style="font-style: italic; font-size: 0.9rem; opacity: 0.8;">"Under the protection of St. Gabriel"</p>
+                </div>
+                <div class="id-card-body">
+                    <div class="id-photo">
+                        <img id="cardPhoto" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: none;">
+                        <span id="cardPhotoPlaceholder"><i class="fas fa-user"></i></span>
+                    </div>
+                    <div class="id-info">
+                        <h4 id="cardName">Member Name</h4>
+                        <p><strong>Member ID:</strong> <span id="cardMemberID">SGC-0001</span></p>
+                        <p><strong>Ministry:</strong> <span id="cardMinistry">Choir</span></p>
+                        <p><strong>Date of Birth:</strong> <span id="cardDOB">01/01/1990</span></p>
+                        <p><strong>Status:</strong> <span id="cardStatus">Communicant</span></p>
+                        <p><strong>Phone:</strong> <span id="cardPhone">+234 XXX XXX XXXX</span></p>
+                        <p><strong>Issued:</strong> <span id="cardIssued">2024</span></p>
+                    </div>
+                </div>
+            </div>
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; text-align: center;">
+                <h4 style="color: #166534; margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Important Information</h4>
+                <div style="color: #166534; font-size: 0.9rem; line-height: 1.6;">
+                    <p>✅ This card is the official property of St. Gabriel Chaplaincy</p>
+                    <p>📧 Admin has been notified for physical ID card printing</p>
+                    <p>🆔 Present this card for all parish activities and services</p>
+                    <p>📞 Report loss or damage to the parish office immediately</p>
+                </div>
+            </div>
+            <button onclick="completeRegistration()" class="submit-btn">
+                <i class="fas fa-check"></i> Complete Registration
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics Modal -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <button class="close-btn" onclick="closeStatsModal()">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-chart-bar"></i> Registration Statistics</h3>
+                <p>Parish membership analytics and growth tracking</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number" id="statsTotalMembers">0</div>
+                    <div class="stat-label">Total Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                    <div class="stat-number" id="statsTodayRegistrations">0</div>
+                    <div class="stat-label">Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="stat-number" id="statsThisMonth">0</div>
+                    <div class="stat-label">This Month</div>
+                </div>
+            </div>
+            <div style="background: #f8fafc; border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+                <h4 style="margin-bottom: 1rem; color: var(--church-blue);"><i class="fas fa-clock"></i> Recent Registrations</h4>
+                <div id="recentRegistrations">
+                    <p style="text-align: center; color: #6b7280; padding: 2rem;">No recent registrations</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content" style="max-width: 1000px;">
+            <button class="close-btn" onclick="closeAdminPanel()">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-user-shield"></i> Admin Panel</h3>
+                <p>Parish administration and member management</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #eff6ff; border-radius: 12px; padding: 1.5rem; border: 2px solid #bfdbfe;">
+                    <h4 style="color: var(--church-blue); margin-bottom: 1rem;"><i class="fas fa-list"></i> Recent Registrations</h4>
+                    <div id="adminRecentRegistrations" style="max-height: 300px; overflow-y: auto;">
+                        <p style="text-align: center; color: #6b7280; padding: 2rem;">No registrations yet</p>
+                    </div>
+                </div>
+                <div style="background: #f0fdf4; border-radius: 12px; padding: 1.5rem; border: 2px solid #bbf7d0;">
+                    <h4 style="color: #166534; margin-bottom: 1rem;"><i class="fas fa-chart-line"></i> Statistics Overview</h4>
+                    <div id="adminStats">
+                        <div style="display: flex; justify-between; margin-bottom: 0.5rem;">
+                            <span>Total Members:</span>
+                            <strong id="adminTotalMembers">0</strong>
+                        </div>
+                        <div style="display: flex; justify-between; margin-bottom: 0.5rem;">
+                            <span>Today's Registrations:</span>
+                            <strong id="adminTodayRegistrations">0</strong>
+                        </div>
+                        <div style="display: flex; justify-between; margin-bottom: 0.5rem;">
+                            <span>This Month:</span>
+                            <strong id="adminMonthRegistrations">0</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="background: #fef3c7; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; border: 2px solid #fbbf24;">
+                <h4 style="color: #92400e; margin-bottom: 1rem;"><i class="fas fa-bell"></i> Member Messages & Notifications</h4>
+                <div id="memberMessages">
+                    <p style="text-align: center; color: #6b7280; padding: 2rem;">No messages yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-church"></i>
+                    <h3>St. Gabriel Chaplaincy</h3>
+                </div>
+                <p>© 2024 St. Gabriel Chaplaincy. All rights reserved.</p>
+                <p>Building a stronger Catholic community together under divine protection</p>
+                <p style="margin-top: 1rem; font-style: italic; color: var(--church-gold);">
+                    "Under the Protection of Archangel Gabriel"
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let memberCounter = parseInt(localStorage.getItem('memberCounter') || '0');
+        let registrations = JSON.parse(localStorage.getItem('registrations') || '[]');
+        let currentMemberData = null;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatsDisplay();
+            setupEventListeners();
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Form submission
+            document.getElementById('registrationForm').addEventListener('submit', handleFormSubmission);
+            
+            // Photo upload
+            document.getElementById('photoUpload').addEventListener('change', handlePhotoUpload);
+        }
+
+        // Handle photo upload
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('photoStatus').innerHTML = '<strong style="color: #10b981;">✅ Photo uploaded successfully!</strong>';
+                    document.querySelector('.file-upload').classList.add('has-file');
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('photoPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Handle ministry change
+        function handleMinistryChange() {
+            const ministry = document.getElementById('ministry').value;
+            const customDiv = document.getElementById('customMinistryDiv');
+            
+            if (ministry === 'Other') {
+                customDiv.style.display = 'block';
+                document.getElementById('customMinistry').required = true;
+            } else {
+                customDiv.style.display = 'none';
+                document.getElementById('customMinistry').required = false;
+            }
+        }
+
+        // Handle radio selection
+        function selectRadio(name, value) {
+            document.querySelector(`input[name="${name}"][value="${value}"]`).checked = true;
+            
+            // Update visual selection
+            document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                radio.closest('.radio-option').classList.remove('selected');
+            });
+            document.querySelector(`input[name="${name}"][value="${value}"]`).closest('.radio-option').classList.add('selected');
+        }
+
+        // Toggle terms checkbox
+        function toggleTerms() {
+            const checkbox = document.getElementById('agreeTerms');
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                checkbox.closest('.radio-option').classList.add('selected');
+            } else {
+                checkbox.closest('.radio-option').classList.remove('selected');
+            }
+        }
+
+        // Handle form submission
+        function handleFormSubmission(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="loading"></div> Processing Registration...';
+            submitBtn.disabled = true;
+            
+            // Simulate processing time
+            setTimeout(() => {
+                // Generate member data
+                currentMemberData = generateMemberData();
+                
+                // Save registration
+                saveRegistration(currentMemberData);
+                
+                // Update statistics
+                updateRegistrationStats();
+                updateStatsDisplay();
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Show success modal
+                showSuccessModal();
+            }, 3000);
+        }
+
+        // Validate form
+        function validateForm() {
+            const requiredFields = [
+                'fullName', 'dateOfBirth', 'gender', 'maritalStatus',
+                'phoneNumber', 'emailAddress', 'homeAddress',
+                'ministry', 'yearsInFaith'
+            ];
+            
+            let isValid = true;
+            let firstInvalidField = null;
+            
+            // Check required fields
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    isValid = false;
+                    element.style.borderColor = '#ef4444';
+                    if (!firstInvalidField) firstInvalidField = element;
+                } else {
+                    element.style.borderColor = '#e5e7eb';
+                }
+            });
+            
+            // Check sacrament status
+            const sacramentStatus = document.querySelector('input[name="sacramentStatus"]:checked');
+            if (!sacramentStatus) {
+                isValid = false;
+                alert('Please select your sacramental status.');
+                return false;
+            }
+            
+            // Check photo upload
+            const photoUpload = document.getElementById('photoUpload');
+            if (!photoUpload.files.length) {
+                isValid = false;
+                alert('Please upload your passport photo.');
+                return false;
+            }
+            
+            // Check terms agreement
+            const agreeTerms = document.getElementById('agreeTerms');
+            if (!agreeTerms.checked) {
+                isValid = false;
+                alert('Please agree to the terms and conditions.');
+                return false;
+            }
+            
+            // Check custom ministry if "Other" is selected
+            const ministry = document.getElementById('ministry').value;
+            if (ministry === 'Other' && !document.getElementById('customMinistry').value.trim()) {
+                isValid = false;
+                alert('Please specify your ministry/domain.');
+                return false;
+            }
+            
+            if (!isValid && firstInvalidField) {
+                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstInvalidField.focus();
+                alert('Please fill in all required fields.');
+            }
+            
+            return isValid;
+        }
+
+        // Generate member data
+        function generateMemberData() {
+            const formData = new FormData(document.getElementById('registrationForm'));
+            const memberId = generateMemberID();
+            
+            return {
+                id: memberId,
+                fullName: formData.get('fullName'),
+                dateOfBirth: formData.get('dateOfBirth'),
+                gender: formData.get('gender'),
+                maritalStatus: formData.get('maritalStatus'),
+                phoneNumber: formData.get('phoneNumber'),
+                emailAddress: formData.get('emailAddress'),
+                homeAddress: formData.get('homeAddress'),
+                ministry: formData.get('ministry') === 'Other' ? formData.get('customMinistry') : formData.get('ministry'),
+                yearsInFaith: formData.get('yearsInFaith'),
+                sacramentStatus: formData.get('sacramentStatus'),
+                photoFile: document.getElementById('photoUpload').files[0],
+                registrationDate: new Date().toISOString()
+            };
+        }
+
+        // Generate member ID
+        function generateMemberID() {
+            memberCounter++;
+            localStorage.setItem('memberCounter', memberCounter.toString());
+            return `SGC-${memberCounter.toString().padStart(4, '0')}`;
+        }
+
+        // Save registration
+        function saveRegistration(memberData) {
+            registrations.push(memberData);
+            localStorage.setItem('registrations', JSON.stringify(registrations));
+        }
+
+        // Update registration statistics
+        function updateRegistrationStats() {
+            const today = new Date().toISOString().split('T')[0];
+            const thisMonth = today.substring(0, 7);
+            
+            const stats = JSON.parse(localStorage.getItem('registrationStats') || '{"daily": {}, "monthly": {}}');
+            
+            stats.daily[today] = (stats.daily[today] || 0) + 1;
+            stats.monthly[thisMonth] = (stats.monthly[thisMonth] || 0) + 1;
+            
+            localStorage.setItem('registrationStats', JSON.stringify(stats));
+        }
+
+        // Update stats display
+        function updateStatsDisplay() {
+            const today = new Date().toISOString().split('T')[0];
+            const thisMonth = today.substring(0, 7);
+            const stats = JSON.parse(localStorage.getItem('registrationStats') || '{"daily": {}, "monthly": {}}');
+            
+            document.getElementById('totalMembers').textContent = memberCounter;
+            document.getElementById('monthlyMembers').textContent = stats.monthly[thisMonth] || 0;
+            document.getElementById('todayMembers').textContent = stats.daily[today] || 0;
+        }
+
+        // Show success modal
+        function showSuccessModal() {
+            const memberInfo = document.getElementById('memberInfo');
+            memberInfo.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; font-size: 0.9rem;">
+                    <div><strong>Name:</strong> ${currentMemberData.fullName}</div>
+                    <div><strong>Member ID:</strong> ${currentMemberData.id}</div>
+                    <div><strong>Email:</strong> ${currentMemberData.emailAddress}</div>
+                    <div><strong>Phone:</strong> ${currentMemberData.phoneNumber}</div>
+                    <div><strong>Ministry:</strong> ${currentMemberData.ministry}</div>
+                    <div><strong>Status:</strong> ${currentMemberData.sacramentStatus}</div>
+                </div>
+            `;
+            
+            document.getElementById('successModal').classList.add('show');
+        }
+
+        // Close success modal
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('show');
+        }
+
+        // Show ID card
+        function showIDCard() {
+            if (!currentMemberData) return;
+            
+            // Populate ID card
+            document.getElementById('cardName').textContent = currentMemberData.fullName;
+            document.getElementById('cardMemberID').textContent = currentMemberData.id;
+            document.getElementById('cardMinistry').textContent = currentMemberData.ministry;
+            document.getElementById('cardDOB').textContent = formatDate(currentMemberData.dateOfBirth);
+            document.getElementById('cardStatus').textContent = currentMemberData.sacramentStatus;
+            document.getElementById('cardPhone').textContent = currentMemberData.phoneNumber;
+            document.getElementById('cardIssued').textContent = new Date().getFullYear();
+            
+            // Set photo if available
+            if (currentMemberData.photoFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('cardPhoto').src = e.target.result;
+                    document.getElementById('cardPhoto').style.display = 'block';
+                    document.getElementById('cardPhotoPlaceholder').style.display = 'none';
+                };
+                reader.readAsDataURL(currentMemberData.photoFile);
+            }
+            
+            closeSuccessModal();
+            document.getElementById('idCardModal').classList.add('show');
+        }
+
+        // Close ID card modal
+        function closeIDCard() {
+            document.getElementById('idCardModal').classList.remove('show');
+        }
+
+        // Print ID card
+        function printIDCard() {
+            const idCard = document.getElementById('idCardContent');
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Member ID Card - ${currentMemberData.fullName}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            .id-card { 
+                                background: linear-gradient(135deg, #1e3a8a, #800020);
+                                border-radius: 16px;
+                                padding: 2rem;
+                                color: white;
+                                width: 400px;
+                                margin: 0 auto;
+                                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+                            }
+                            .id-card-header { text-align: center; margin-bottom: 2rem; }
+                            .id-card-header h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+                            .id-card-body { display: grid; grid-template-columns: 100px 1fr; gap: 1.5rem; align-items: center; }
+                            .id-photo { 
+                                width: 100px; 
+                                height: 100px; 
+                                border-radius: 12px; 
+                                background: rgba(255,255,255,0.2);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                border: 3px solid rgba(255,255,255,0.3);
+                            }
+                            .id-info h4 { margin-bottom: 0.5rem; }
+                            .id-info p { margin-bottom: 0.3rem; font-size: 0.9rem; }
+                        </style>
+                    </head>
+                    <body>
+                        ${idCard.outerHTML}
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        // Download ID card
+        function downloadIDCard() {
+            alert('Download feature would be implemented with html2canvas library in production.');
+        }
+
+        // Complete registration
+        function completeRegistration() {
+            closeIDCard();
+            
+            // Reset form
+            document.getElementById('registrationForm').reset();
+            document.getElementById('photoStatus').innerHTML = '<strong>Click to upload your passport photo</strong>';
+            document.querySelector('.file-upload').classList.remove('has-file');
+            document.getElementById('photoPreview').style.display = 'none';
+            document.getElementById('customMinistryDiv').style.display = 'none';
+            
+            // Reset radio selections
+            document.querySelectorAll('.radio-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            currentMemberData = null;
+            
+            alert('🎉 Registration completed successfully! Welcome to St. Gabriel Chaplaincy family!');
+        }
+
+        // Show statistics modal
+        function showStats() {
+            updateStatsModal();
+            document.getElementById('statsModal').classList.add('show');
+        }
+
+        // Close statistics modal
+        function closeStatsModal() {
+            document.getElementById('statsModal').classList.remove('show');
+        }
+
+        // Update statistics modal
+        function updateStatsModal() {
+            const today = new Date().toISOString().split('T')[0];
+            const thisMonth = today.substring(0, 7);
+            const stats = JSON.parse(localStorage.getItem('registrationStats') || '{"daily": {}, "monthly": {}}');
+            
+            document.getElementById('statsTotalMembers').textContent = memberCounter;
+            document.getElementById('statsTodayRegistrations').textContent = stats.daily[today] || 0;
+            document.getElementById('statsThisMonth').textContent = stats.monthly[thisMonth] || 0;
+            
+            // Show recent registrations
+            const recentDiv = document.getElementById('recentRegistrations');
+            const recentRegistrations = registrations.slice(-5).reverse();
+            
+            if (recentRegistrations.length === 0) {
+                recentDiv.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No recent registrations</p>';
+            } else {
+                recentDiv.innerHTML = recentRegistrations.map(reg => `
+                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin-bottom: 0.5rem; background: white;">
+                        <div style="display: flex; justify-between; align-items: center;">
+                            <div>
+                                <strong>${reg.fullName}</strong><br>
+                                <small style="color: #6b7280;">${reg.ministry} • ${reg.sacramentStatus}</small>
+                            </div>
+                            <div style="text-align: right; font-size: 0.8rem; color: #6b7280;">
+                                <div>${reg.id}</div>
+                                <div>${formatDate(reg.registrationDate)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Show admin panel
+        function showAdminPanel() {
+            updateAdminPanel();
+            document.getElementById('adminModal').classList.add('show');
+        }
+
+        // Close admin panel
+        function closeAdminPanel() {
+            document.getElementById('adminModal').classList.remove('show');
+        }
+
+        // Update admin panel
+        function updateAdminPanel() {
+            const today = new Date().toISOString().split('T')[0];
+            const thisMonth = today.substring(0, 7);
+            const stats = JSON.parse(localStorage.getItem('registrationStats') || '{"daily": {}, "monthly": {}}');
+            
+            // Update admin stats
+            document.getElementById('adminTotalMembers').textContent = memberCounter;
+            document.getElementById('adminTodayRegistrations').textContent = stats.daily[today] || 0;
+            document.getElementById('adminMonthRegistrations').textContent = stats.monthly[thisMonth] || 0;
+            
+            // Show recent registrations in admin panel
+            const adminRecentDiv = document.getElementById('adminRecentRegistrations');
+            const recentRegistrations = registrations.slice(-10).reverse();
+            
+            if (recentRegistrations.length === 0) {
+                adminRecentDiv.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No registrations yet</p>';
+            } else {
+                adminRecentDiv.innerHTML = recentRegistrations.map(reg => `
+                    <div style="border: 1px solid #bfdbfe; border-radius: 8px; padding: 1rem; margin-bottom: 0.5rem; background: white;">
+                        <div style="display: flex; justify-between; align-items: start;">
+                            <div style="flex: 1;">
+                                <strong style="color: var(--church-blue);">${reg.fullName}</strong><br>
+                                <small style="color: #6b7280;">📧 ${reg.emailAddress}</small><br>
+                                <small style="color: #6b7280;">📞 ${reg.phoneNumber}</small><br>
+                                <small style="color: #6b7280;">⛪ ${reg.ministry}</small>
+                            </div>
+                            <div style="text-align: right; font-size: 0.8rem; color: #6b7280;">
+                                <div style="font-weight: bold; color: var(--church-gold);">${reg.id}</div>
+                                <div>${formatDate(reg.registrationDate)}</div>
+                                <div style="margin-top: 0.5rem;">
+                                    <span style="background: #10b981; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem;">
+                                        ${reg.sacramentStatus}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Update member messages
+            const messagesDiv = document.getElementById('memberMessages');
+            if (registrations.length === 0) {
+                messagesDiv.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No messages yet</p>';
+            } else {
+                const messages = registrations.map(reg => 
+                    `New member registration: ${reg.fullName} (${reg.id}) - ${reg.ministry}`
+                ).slice(-5).reverse();
+                
+                messagesDiv.innerHTML = messages.map(msg => `
+                    <div style="border-left: 4px solid #fbbf24; background: white; padding: 1rem; margin-bottom: 0.5rem; border-radius: 0 8px 8px 0;">
+                        <i class="fas fa-bell" style="color: #f59e0b; margin-right: 8px;"></i>
+                        ${msg}
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+            }
+        });
+
+        // Initialize stats display on page load
+        updateStatsDisplay();
+    </script>
+</body>
+</html>

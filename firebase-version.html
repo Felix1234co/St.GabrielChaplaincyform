@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Gabriel Chaplaincy - Registration with Firebase Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+        // ADMIN: Replace with your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "your-api-key",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "your-app-id"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Make Firebase available globally
+        window.db = db;
+        window.storage = storage;
+        window.firebaseModules = { collection, addDoc, getDocs, query, orderBy, limit, ref, uploadBytes, getDownloadURL };
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'church-gold': '#D4AF37',
+                        'church-blue': '#1e3a8a',
+                        'church-burgundy': '#800020',
+                        'church-cream': '#F5F5DC'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .church-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #a855f7 75%, #c084fc 100%);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFA500 100%);
+        }
+        .animate-fade-in { animation: fadeIn 0.8s ease-in-out; }
+        @media print {
+            body * { visibility: hidden; }
+            .print-area, .print-area * { visibility: visible; }
+            .print-area { position: absolute; left: 0; top: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body class="min-h-screen church-gradient">
+    <!-- Firebase Setup Instructions -->
+    <div id="firebaseSetup" class="bg-red-100 border-l-4 border-red-500 p-4 m-4 rounded-lg">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <span class="text-red-500 text-xl">🔥</span>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm text-red-700">
+                    <strong>Firebase Setup Required:</strong> Please configure Firebase to enable database functionality.
+                    <button onclick="showFirebaseSetup()" class="underline hover:no-underline">Click here for setup instructions</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="bg-white/95 backdrop-blur-sm shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-church-gold rounded-full flex items-center justify-center">
+                        <span class="text-2xl text-white">⛪</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-serif font-bold text-church-blue">St. Gabriel Chaplaincy</h1>
+                        <p class="text-sm text-gray-600">Catholic Community - Firebase Database</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="showAdminPanel()" class="bg-church-burgundy text-white px-4 py-2 rounded-lg hover:bg-red-800 transition-colors text-sm font-medium">
+                        👨‍💼 Admin Panel
+                    </button>
+                    <button onclick="exportData()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
+                        📊 Export Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Hero Section -->
+        <div class="text-center mb-12 animate-fade-in">
+            <div class="relative inline-block">
+                <div class="absolute inset-0 bg-church-gold/20 blur-3xl rounded-full"></div>
+                <div class="relative bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+                    <div class="w-24 h-24 mx-auto mb-6 bg-white rounded-full flex items-center justify-center shadow-2xl">
+                        <span class="text-4xl">✝️</span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-serif font-bold text-white mb-4">
+                        St. Gabriel Chaplaincy
+                    </h1>
+                    <p class="text-xl text-white/90 mb-2">Official Membership Registration Portal</p>
+                    <p class="text-lg text-church-gold font-medium">"Under the Protection of Archangel Gabriel"</p>
+                    <div class="mt-4 bg-green-500/20 backdrop-blur-sm rounded-lg p-3">
+                        <p class="text-white text-sm">🔥 <strong>Firebase Database Enabled</strong> - All data is securely stored in the cloud</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form (Same as before but with Firebase integration) -->
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden animate-fade-in">
+            <div class="gold-gradient p-6 text-center relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-2xl font-serif font-bold text-white mb-2">🕊️ Divine Blessing & Protection</h2>
+                    <p class="text-white/90 leading-relaxed max-w-3xl mx-auto">
+                        Every membership card is blessed with St. Gabriel's divine protection. Your data is securely stored in our cloud database.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-8 lg:p-12">
+                <form id="registrationForm" class="space-y-8">
+                    <!-- Personal Information -->
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border-l-4 border-church-blue">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 bg-church-blue rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white text-lg">👤</span>
+                            </div>
+                            <h3 class="text-2xl font-serif font-bold text-church-blue">Personal Information</h3>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">Full Name *</label>
+                                <input type="text" id="fullName" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-church-blue focus:outline-none transition-all duration-300 text-lg"
+                                    placeholder="Enter your complete full name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">Date of Birth *</label>
+                                <input type="date" id="dateOfBirth" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-church-blue focus:outline-none transition-all duration-300 text-lg">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">Email Address *</label>
+                                <input type="email" id="emailAddress" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-church-blue focus:outline-none transition-all duration-300 text-lg"
+                                    placeholder="your.email@example.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">Phone Number *</label>
+                                <input type="tel" id="phoneNumber" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-church-blue focus:outline-none transition-all duration-300 text-lg"
+                                    placeholder="+234 XXX XXX XXXX">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Photo Upload -->
+                    <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 border-l-4 border-purple-600">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white text-lg">📷</span>
+                            </div>
+                            <h3 class="text-2xl font-serif font-bold text-purple-800">Passport Photograph</h3>
+                        </div>
+                        
+                        <div class="border-3 border-dashed border-purple-300 rounded-2xl p-8 text-center bg-white hover:bg-purple-50 transition-colors cursor-pointer"
+                             onclick="document.getElementById('photoUpload').click()">
+                            <input type="file" id="photoUpload" accept="image/*" class="hidden" onchange="previewPhoto(this)">
+                            <div id="uploadText">
+                                <span class="text-6xl mb-4 block">📸</span>
+                                <p class="text-purple-600 font-semibold text-lg mb-2">Click to upload your passport photo</p>
+                                <p class="text-sm text-gray-500">Will be stored securely in Firebase Storage</p>
+                            </div>
+                        </div>
+                        <img id="photoPreview" class="hidden max-w-48 max-h-48 mx-auto rounded-2xl border-4 border-purple-300 shadow-lg mt-4">
+                    </div>
+
+                    <!-- Ministry Selection -->
+                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-8 border-l-4 border-amber-500">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white text-lg">⛪</span>
+                            </div>
+                            <h3 class="text-2xl font-serif font-bold text-amber-800">Ministry Information</h3>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Primary Ministry *</label>
+                            <select id="ministry" required
+                                class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:border-amber-500 focus:outline-none transition-all duration-300 text-lg">
+                                <option value="">Select your ministry</option>
+                                <option value="Choir">🎵 Choir Ministry</option>
+                                <option value="Altar Server">⛪ Altar Server</option>
+                                <option value="Board of Lector">📖 Board of Lector</option>
+                                <option value="CMO">👨‍👥 Catholic Men Organization</option>
+                                <option value="CWO">👩‍👥 Catholic Women Organization</option>
+                                <option value="Youth Ministry">🌟 Youth Ministry</option>
+                                <option value="Usher">🚪 Usher Ministry</option>
+                            </select>
+                        </div>
+
+                        <div class="mt-6">
+                            <label class="block text-sm font-semibold text-gray-700 mb-4">Sacramental Status *</label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-amber-500 transition-colors">
+                                    <input type="radio" name="sacramentStatus" value="Communicant" required class="mr-3 w-5 h-5 text-amber-500">
+                                    <div>
+                                        <div class="font-semibold text-gray-700">Communicant</div>
+                                        <div class="text-sm text-gray-500">Baptized & Confirmed</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-amber-500 transition-colors">
+                                    <input type="radio" name="sacramentStatus" value="Baptized Only" required class="mr-3 w-5 h-5 text-amber-500">
+                                    <div>
+                                        <div class="font-semibold text-gray-700">Baptized Only</div>
+                                        <div class="text-sm text-gray-500">Awaiting Confirmation</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-amber-500 transition-colors">
+                                    <input type="radio" name="sacramentStatus" value="Catechumen" required class="mr-3 w-5 h-5 text-amber-500">
+                                    <div>
+                                        <div class="font-semibold text-gray-700">Catechumen</div>
+                                        <div class="text-sm text-gray-500">Preparing for Baptism</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl p-8 border-l-4 border-red-500">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="agreeTerms" required class="mr-3 w-5 h-5 text-red-500">
+                            <span class="text-red-800 font-medium">I agree to the terms and conditions, and consent to data processing for parish purposes.</span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center pt-8">
+                        <button type="submit" id="submitBtn"
+                            class="gold-gradient text-white py-6 px-12 rounded-2xl text-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                            ✝️ Register & Save to Database
+                        </button>
+                        <p class="text-white/80 mt-4 text-sm">🔥 Your data will be securely stored in Firebase</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Setup Modal -->
+    <div id="firebaseSetupModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-serif font-bold text-gray-800">🔥 Firebase Database Setup</h2>
+                <button onclick="closeFirebaseSetup()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-xl font-semibold transition-colors">
+                    ✕ Close
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                    <h3 class="font-bold text-blue-800 mb-3">🚀 Step-by-Step Firebase Setup:</h3>
+                    <ol class="list-decimal list-inside space-y-3 text-sm text-blue-700">
+                        <li><strong>Go to <a href="https://console.firebase.google.com" target="_blank" class="underline">Firebase Console</a></strong></li>
+                        <li><strong>Create a new project</strong> (e.g., "st-gabriel-chaplaincy")</li>
+                        <li><strong>Enable Firestore Database</strong> (Start in test mode)</li>
+                        <li><strong>Enable Firebase Storage</strong> (for photo uploads)</li>
+                        <li><strong>Go to Project Settings</strong> → General → Your apps</li>
+                        <li><strong>Add a web app</strong> and copy the configuration</li>
+                        <li><strong>Replace the firebaseConfig</strong> in the HTML file</li>
+                    </ol>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-xl">
+                    <h4 class="font-semibold mb-2">📝 Replace this configuration:</h4>
+                    <pre class="text-xs bg-gray-800 text-green-400 p-3 rounded overflow-x-auto"><code>const firebaseConfig = {
+    apiKey: "your-actual-api-key",
+    authDomain: "your-project.firebaseapp.com",
+    projectId: "your-project-id",
+    storageBucket: "your-project.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "your-app-id"
+};</code></pre>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-xl border border-green-200">
+                    <h4 class="font-semibold text-green-800 mb-2">✅ Firebase Benefits:</h4>
+                    <ul class="text-sm text-green-700 space-y-1">
+                        <li>• <strong>Real-time database</strong> - Data syncs instantly</li>
+                        <li>• <strong>Cloud storage</strong> - Photos stored securely</li>
+                        <li>• <strong>Free tier</strong> - 1GB storage, 50K reads/day</li>
+                        <li>• <strong>Automatic backups</strong> - Never lose data</li>
+                        <li>• <strong>Admin dashboard</strong> - View all data online</li>
+                        <li>• <strong>Export capabilities</strong> - Download as Excel/CSV</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl">
+            <div class="text-8xl mb-6">🎉</div>
+            <h2 class="text-3xl font-serif font-bold text-green-600 mb-4">Registration Successful!</h2>
+            <p class="text-gray-600 mb-6">Your data has been saved to the Firebase database!</p>
+            <div id="memberInfo" class="bg-blue-50 p-6 rounded-xl mb-6 text-left border border-blue-200"></div>
+            <button onclick="closeSuccessModal()" 
+                class="w-full gold-gradient text-white py-4 rounded-xl font-bold text-lg transition-all hover:scale-105">
+                🔥 View in Firebase Console
+            </button>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl p-8 max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-serif font-bold text-gray-800">👨‍💼 Firebase Admin Panel</h2>
+                <div class="flex gap-3">
+                    <button onclick="refreshData()" class="bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-blue-700">
+                        🔄 Refresh
+                    </button>
+                    <button onclick="closeAdminPanel()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-xl font-semibold">
+                        ✕ Close
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="bg-blue-50 rounded-xl p-6 border border-blue-200 text-center">
+                    <div class="text-3xl font-bold text-blue-800" id="totalMembers">0</div>
+                    <div class="text-blue-600">Total Members</div>
+                </div>
+                <div class="bg-green-50 rounded-xl p-6 border border-green-200 text-center">
+                    <div class="text-3xl font-bold text-green-800" id="todayCount">0</div>
+                    <div class="text-green-600">Today's Registrations</div>
+                </div>
+                <div class="bg-purple-50 rounded-xl p-6 border border-purple-200 text-center">
+                    <div class="text-3xl font-bold text-purple-800" id="monthCount">0</div>
+                    <div class="text-purple-600">This Month</div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">📋 Recent Registrations</h3>
+                <div id="membersList" class="space-y-3 max-h-96 overflow-y-auto">
+                    <p class="text-gray-500 text-center py-8">Loading members from Firebase...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMemberData = null;
+
+        // Form submission with Firebase
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerHTML = '⏳ Saving to Database...';
+            submitBtn.disabled = true;
+
+            try {
+                // Get form data
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    dateOfBirth: document.getElementById('dateOfBirth').value,
+                    emailAddress: document.getElementById('emailAddress').value,
+                    phoneNumber: document.getElementById('phoneNumber').value,
+                    ministry: document.getElementById('ministry').value,
+                    sacramentStatus: document.querySelector('input[name="sacramentStatus"]:checked').value,
+                    registrationDate: new Date().toISOString(),
+                    memberID: `SGC-${Date.now().toString().slice(-6)}`
+                };
+
+                // Upload photo if provided
+                const photoFile = document.getElementById('photoUpload').files[0];
+                if (photoFile) {
+                    const { ref, uploadBytes, getDownloadURL } = window.firebaseModules;
+                    const photoRef = ref(window.storage, `photos/${formData.memberID}`);
+                    const snapshot = await uploadBytes(photoRef, photoFile);
+                    formData.photoURL = await getDownloadURL(snapshot.ref);
+                }
+
+                // Save to Firestore
+                const { collection, addDoc } = window.firebaseModules;
+                const docRef = await addDoc(collection(window.db, 'members'), formData);
+                
+                currentMemberData = { ...formData, id: docRef.id };
+                
+                // Show success
+                document.getElementById('memberInfo').innerHTML = `
+                    <div class="space-y-2">
+                        <div><strong>Member ID:</strong> ${formData.memberID}</div>
+                        <div><strong>Name:</strong> ${formData.fullName}</div>
+                        <div><strong>Email:</strong> ${formData.emailAddress}</div>
+                        <div><strong>Ministry:</strong> ${formData.ministry}</div>
+                        <div><strong>Status:</strong> ${formData.sacramentStatus}</div>
+                    </div>
+                `;
+                
+                document.getElementById('successModal').classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Error saving to Firebase:', error);
+                alert('Error saving to database. Please check your Firebase configuration.');
+            }
+
+            submitBtn.innerHTML = '✝️ Register & Save to Database';
+            submitBtn.disabled = false;
+        });
+
+        // Photo preview
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('photoPreview');
+                    const uploadText = document.getElementById('uploadText');
+                    
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    uploadText.innerHTML = '<span class="text-4xl mb-2 block">✅</span><p class="text-green-600 font-semibold text-lg">Photo ready for upload!</p>';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Admin panel functions
+        async function showAdminPanel() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            await loadMembersData();
+        }
+
+        async function loadMembersData() {
+            try {
+                const { collection, getDocs, query, orderBy } = window.firebaseModules;
+                const q = query(collection(window.db, 'members'), orderBy('registrationDate', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                const members = [];
+                querySnapshot.forEach((doc) => {
+                    members.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Update statistics
+                document.getElementById('totalMembers').textContent = members.length;
+                
+                const today = new Date().toISOString().split('T')[0];
+                const todayMembers = members.filter(m => m.registrationDate.startsWith(today));
+                document.getElementById('todayCount').textContent = todayMembers.length;
+
+                const thisMonth = new Date().toISOString().slice(0, 7);
+                const monthMembers = members.filter(m => m.registrationDate.startsWith(thisMonth));
+                document.getElementById('monthCount').textContent = monthMembers.length;
+
+                // Display members list
+                const membersList = document.getElementById('membersList');
+                if (members.length > 0) {
+                    membersList.innerHTML = members.map(member => `
+                        <div class="bg-white p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="font-semibold text-gray-800">${member.fullName}</div>
+                                    <div class="text-sm text-gray-600">${member.memberID} • ${member.ministry}</div>
+                                    <div class="text-sm text-gray-500">${member.emailAddress} • ${member.phoneNumber}</div>
+                                    <div class="text-xs text-gray-400">${new Date(member.registrationDate).toLocaleString()}</div>
+                                </div>
+                                ${member.photoURL ? `<img src="${member.photoURL}" class="w-12 h-12 rounded-lg object-cover">` : '<div class="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400">📷</div>'}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    membersList.innerHTML = '<p class="text-gray-500 text-center py-8">No members found in database</p>';
+                }
+
+            } catch (error) {
+                console.error('Error loading members:', error);
+                document.getElementById('membersList').innerHTML = '<p class="text-red-500 text-center py-8">Error loading data. Check Firebase configuration.</p>';
+            }
+        }
+
+        async function refreshData() {
+            await loadMembersData();
+        }
+
+        async function exportData() {
+            try {
+                const { collection, getDocs } = window.firebaseModules;
+                const querySnapshot = await getDocs(collection(window.db, 'members'));
+                
+                const members = [];
+                querySnapshot.forEach((doc) => {
+                    members.push(doc.data());
+                });
+
+                // Convert to CSV
+                const csvContent = [
+                    ['Member ID', 'Full Name', 'Email', 'Phone', 'Ministry', 'Sacrament Status', 'Registration Date'].join(','),
+                    ...members.map(m => [
+                        m.memberID,
+                        m.fullName,
+                        m.emailAddress,
+                        m.phoneNumber,
+                        m.ministry,
+                        m.sacramentStatus,
+                        new Date(m.registrationDate).toLocaleDateString()
+                    ].join(','))
+                ].join('\n');
+
+                // Download CSV
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `st-gabriel-members-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+
+            } catch (error) {
+                console.error('Error exporting data:', error);
+                alert('Error exporting data');
+            }
+        }
+
+        // Modal functions
+        function showFirebaseSetup() {
+            document.getElementById('firebaseSetupModal').classList.remove('hidden');
+        }
+
+        function closeFirebaseSetup() {
+            document.getElementById('firebaseSetupModal').classList.add('hidden');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('registrationForm').reset();
+            document.getElementById('photoPreview').classList.add('hidden');
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
